@@ -34,10 +34,7 @@ static char	*ft_fill_buffer(int fd, char *remainder, char *buffer)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-		{
-			free(remainder);
 			return (NULL);
-		}
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
@@ -48,7 +45,7 @@ static char	*ft_fill_buffer(int fd, char *remainder, char *buffer)
 	return (remainder);
 }
 
-char	*ft_extract_line(char *line_buffer)
+static char	*ft_extract_line(char *line_buffer)
 {
 	ssize_t	i;
 	char	*remainder;
@@ -74,25 +71,27 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	static char	*remainder;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		if (buffer)
-			free(buffer);
-		if (remainder)
-			free(remainder);
-		buffer = NULL;
-		remainder = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
 	line = ft_fill_buffer(fd, remainder, buffer);
 	free(buffer);
 	buffer = NULL;
 	if (!line)
+	{
+		if (remainder)
+		{
+			free(remainder);
+			remainder = NULL;
+		}
 		return (NULL);
+	}
 	remainder = ft_extract_line(line);
 	return (line);
 }
+
 /* int	main(void)
 {
 	int		fd;
