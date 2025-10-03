@@ -1,6 +1,6 @@
 # Get_next_line
 
-A C function that reads a line from a file descriptor, developed as part of the 42 school curriculum. get_next_line is a function that reads a line from a file descriptor, one line at a time. The function returns the line that was read, including the newline character `\n` if present, or `NULL` if there is nothing else to read or if an error occurred. This project helps understand buffered reading and dynamic memory management in C.
+A C function that reads a line from a file descriptor, developed as part of the 42 school curriculum. Get_next_line is a function that reads a line from a file descriptor, one line at a time. The function returns the line that was read, including the newline character `\n` if present, or `NULL` if there is nothing else to read or if an error occurred. This project helps understand buffered reading and dynamic memory management in C.
 
 ## Features
 
